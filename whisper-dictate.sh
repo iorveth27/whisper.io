@@ -13,11 +13,29 @@ DICTATE="$SCRIPT_DIR/dictate.py"
 
 # Map friendly names to ISO 639-1 language codes
 resolve_language() {
-  case "$1" in
-    ukraine|ukrainian|uk) echo "uk" ;;
-    english|en)           echo "en" ;;
-    auto|"")              echo "auto" ;;
-    *)                    echo "$1" ;;   # pass through raw codes (fr, de, es …)
+  # Normalize to lowercase
+  local lang
+  lang=$(echo "$1" | tr '[:upper:]' '[:lower:]')
+
+  case "$lang" in
+    ukraine|ukrainian|ua|uk)           echo "uk" ;;
+    english|en)                        echo "en" ;;
+    spanish|espanol|español|es)        echo "es" ;;
+    russian|ru)                        echo "ru" ;;
+    french|francais|français|fr)       echo "fr" ;;
+    german|deutsch|de)                 echo "de" ;;
+    polish|polski|pl)                  echo "pl" ;;
+    italian|italiano|it)               echo "it" ;;
+    portuguese|portugues|português|pt) echo "pt" ;;
+    chinese|mandarin|zh)               echo "zh" ;;
+    japanese|ja)                       echo "ja" ;;
+    korean|ko)                         echo "ko" ;;
+    dutch|nl)                          echo "nl" ;;
+    turkish|tr)                        echo "tr" ;;
+    swedish|sv)                        echo "sv" ;;
+    arabic|ar)                         echo "ar" ;;
+    auto|"")                           echo "auto" ;;
+    *)                                 echo "$1" ;;   # pass through raw codes (fr, de, es …)
   esac
 }
 
